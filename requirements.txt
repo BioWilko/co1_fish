@@ -1,0 +1,4 @@
+mappy
+pysam
+click
+numpy
