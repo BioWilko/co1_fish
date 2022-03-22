@@ -2,3 +2,4 @@ mappy
 pysam
 click
 numpy
+pandas

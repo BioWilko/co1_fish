@@ -17,7 +17,7 @@ setup(
     name="co1_fish",
     version=version,
     install_requires=install_requires,
-    requires=["python (>=3.5)"],
+    requires=["python (>=3.9)"],
     packages=["co1_fish"],
     author="Sam AJ Wilkinson",
     description="",
