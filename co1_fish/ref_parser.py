@@ -23,7 +23,7 @@ def reference_filter(args):
 
     taxon_dict = {}
 
-    taxons = (header.split("|")[1] for header in in_fasta_fh.references)
+    taxons = (header.split("|")[1] for header in in_fasta_fh.references if "COI" in header.split("|")[2].upper())
 
     out_entries = []
 
@@ -31,7 +31,7 @@ def reference_filter(args):
         headers = (
             reference
             for reference in in_fasta_fh.references
-            if reference.split("|")[1] == taxon
+            if reference.split("|")[1] == taxon and "COI" in reference.split("|")[2].upper()
         )
         taxon_dict[taxon] = headers
 
