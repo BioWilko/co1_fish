@@ -45,6 +45,8 @@ def populate_db(args):
     hits = alignment_hit_generator(args)
     db, cursor = init_db()
     for taxon, hit, read_qual in hits:
+        if args.min_match_qual and read_qual < args.min_match_qual:
+            continue
         ref_len = hit.ctg_len
         ref_start = hit.r_st
         ref_end = hit.r_en
@@ -137,10 +139,12 @@ def generate_taxon_metrics(cursor, taxons_with_alignments):
     return taxon_metrics
 
 
-def generate_report(taxon_metrics):
+def generate_report(taxon_metrics, hits_to_print):
     metric_df = pd.DataFrame(data=taxon_metrics)
     metric_df = metric_df.set_index("taxon")
 
     metric_df.sort_values(by="probability", ascending=False, inplace=True)
-    metric_df.to_csv(sep="\t", path_or_buf=sys.stdout, float_format="%.3f")
-
+    if hits_to_print == 0:
+         metric_df.to_csv(sep="\t", path_or_buf=sys.stdout, float_format="%.3f")
+    else:
+        metric_df.head(hits_to_print).to_csv(sep="\t", path_or_buf=sys.stdout, float_format="%.3f")
