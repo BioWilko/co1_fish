@@ -16,7 +16,7 @@ def main(*_, **kwargs):
     cursor.execute("SELECT * FROM taxons;")
     aligned_taxons = cursor.fetchall()
     taxon_metric_list = co1_fish_funcs.generate_taxon_metrics(cursor, aligned_taxons)
-    report_df = co1_fish_funcs.generate_report(taxon_metric_list)
+    co1_fish_funcs.generate_report(taxon_metric_list, args.hits_to_return)
 
 
 
