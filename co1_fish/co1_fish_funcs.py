@@ -139,11 +139,11 @@ def generate_taxon_metrics(cursor, taxons_with_alignments):
     return taxon_metrics
 
 
-def generate_report(taxon_metrics, hits_to_print):
+def generate_report(taxon_metrics, hits_to_print, sorting_method):
     metric_df = pd.DataFrame(data=taxon_metrics)
     metric_df = metric_df.set_index("taxon")
 
-    metric_df.sort_values(by="probability", ascending=False, inplace=True)
+    metric_df.sort_values(by=sorting_method, ascending=False, inplace=True)
     if hits_to_print == 0:
          metric_df.to_csv(sep="\t", path_or_buf=sys.stdout, float_format="%.3f")
     else:
